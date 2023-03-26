@@ -1,4 +1,3 @@
-"""
 BSD 3-Clause License
 
 Copyright (c) 2017, Prem Seetharaman
@@ -64,7 +63,7 @@ class STFT(torch.nn.Module):
             assert(filter_length >= win_length)
             # get window and zero center pad it to filter_length
             fft_window = get_window(window, win_length, fftbins=True)
-            fft_window = pad_center(fft=fft_window, filter_length=filter_length)
+            fft_window = pad_center(data=fft_window,size=filter_length)
             fft_window = torch.from_numpy(fft_window).float()
 
             # window the bases
