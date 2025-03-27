@@ -5,9 +5,18 @@ import numpy as np
 
 
 def save_figure_to_numpy(fig):
-    # save it to a numpy array.
-    data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
-    data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+    # Ensure the figure is rendered
+    fig.canvas.draw()
+    
+    # Get the RGBA buffer from the figure
+    buf = fig.canvas.buffer_rgba()
+    
+    # Convert it to a NumPy array
+    data = np.asarray(buf)
+    
+    # Slice to get RGB only (remove alpha channel)
+    data = data[:, :, :3]
+    
     return data
 
 
